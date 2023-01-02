@@ -2,7 +2,7 @@ const x = 5 * 10 - 48
 
 fn test_abc() {
 	assert 2 == x, 'everything is ok'
-	assert 2 == 10
+	assert x == 2, 'wtf, x: $x'
 }
 
 fn test_def() {
