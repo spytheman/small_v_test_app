@@ -1,0 +1,30 @@
+name: Build and Test
+
+on: [push, pull_request]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+          path: v
+
+      - name: Checkout pcre
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Build V
+        run: cd v && make && sudo ./v symlink && cd -
+
+      - name: V doctor
+        run: v doctor
+
+      - name: Ensure everything is formatted
+        run: v fmt -verify project/
+
+      - name: Run tests
+        run: v test project/
